@@ -23,11 +23,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { signInWithEmailAndPassword } from "@/supabase/api";
+import {
+  fetchBranchLocationByUserId,
+  signInWithEmailAndPassword,
+} from "@/supabase/api";
 import { toast } from "sonner";
 import { formatDate } from "@/lib/utils";
 import Spinner from "../spinner";
-import { useUserStore, useUserStoreProps } from "@/context/user.store";
 import { useState } from "react";
 
 const formSchema = z.object({
@@ -47,7 +49,6 @@ export interface ILoginFormProps {}
 
 export default function LoginForm(props: ILoginFormProps) {
   const navigate = useNavigate();
-  const user: useUserStoreProps = useUserStore();
   const [isValidCredentials, setIsValidCredentials] = useState(true);
 
   const mutation = useMutation({
@@ -76,7 +77,10 @@ export default function LoginForm(props: ILoginFormProps) {
         return;
       } else {
         setIsValidCredentials(true);
-        user.setUser(variables.data.user?.id);
+        // const res = await fetchBranchLocationByUserId(variables.data.user.id);
+        // if (res?.data) {
+        //   userStoreInfo.setBranch(res.data[0]);
+        // }
         navigate("/app");
       }
     },

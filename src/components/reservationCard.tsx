@@ -132,7 +132,6 @@ export default function ReservationCard(props: IReservationCardProps) {
       setDate(date);
       setIsFetchingReservations(true);
       const res: TReservation[] = await fetchReservationsOnDate(date);
-      console.log(res);
       setReservationRows(res);
       setIsFetchingReservations(false);
     }

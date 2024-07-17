@@ -104,3 +104,25 @@ export const fetchReservationsOnDate = async (date: string | number | Date) => {
 
   return data;
 };
+
+// ----- GET BRANCH LOCATION BASED ON USER ID ----- //
+export const fetchBranchLocationByUserId = async () => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const id = user?.id;
+
+  if (!id) {
+    throw new Error("User not authenticated");
+  }
+
+  const { data, error } = await supabase.rpc("get_branch_location", {
+    user_id: id,
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data[0];
+};

@@ -9,5 +9,6 @@ export const AppLoader = async () => {
   if (!user) {
     return redirect("/");
   }
+
   return null;
 };

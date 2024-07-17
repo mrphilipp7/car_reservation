@@ -189,3 +189,13 @@ export const states = [
 export function numberWithCommas(number: number) {
   return number.toLocaleString();
 }
+
+export function toTitleCase(str: string) {
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt
+      .toLowerCase()
+      .split(" ")
+      .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+      .join(" ");
+  });
+}
